@@ -7,7 +7,16 @@
     tools:context=".MainActivity2"
     android:orientation="vertical">
 
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Search Here"
+        android:iconifiedByDefault="false"
+        android:layout_alignParentTop="true"  />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/search"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,7 +48,7 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:background="@color/btntxt"
-        android:visibility="visible"
+        android:visibility="gone"
         android:weightSum="3"
         android:orientation="horizontal">
 

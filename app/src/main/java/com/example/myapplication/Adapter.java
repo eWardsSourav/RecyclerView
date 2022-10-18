@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,20 +20,16 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     List<AllItems> allItemsList;
-    List<Integer> val = new ArrayList<>();
+    List<String> val = new ArrayList<>();
     LinearLayout linearLayout;
     MainInterface mainInterface;
+
 
     public Adapter(Context context, List<AllItems> list,MainInterface mainInterface) {
         this.context = context;
         this.allItemsList = list;
         this.mainInterface=mainInterface;
     }
-
-    //    public Adapter(List<AllItems> allItemsList, MainInterface mainInterface) {
-//        this.allItemsList = allItemsList;
-//        this.mainInterface = mainInterface;
-//    }
 
     @NonNull
     @Override

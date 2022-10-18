@@ -5,12 +5,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,9 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
     LinearLayout cartlayout;
     TextView rstxt, totalprice, qtytxt, totalquantity, buynowbtn;
     ImageView deletecart;
+    SearchView searchView;
+    List<AllItems> filterList=new ArrayList<>();
+
     int ttl=0;
 
     MainInterface mainInterface;
@@ -52,6 +57,7 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
         totalquantity=findViewById(R.id.totalquantity);
         cartlayout=findViewById(R.id.cartlayour);
         deletecart=findViewById(R.id.deletecart);
+        searchView=findViewById(R.id.search);
 
         progressBar.setVisibility(View.VISIBLE);
         textView.setVisibility(View.VISIBLE);
@@ -74,9 +80,7 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
 
 
                 }
-                {
 
-                }
             }
 
             @Override
@@ -92,6 +96,30 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
         adapter = new Adapter(getApplicationContext(), itemsList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                for (int i = 0; i < itemsList.size(); i++) {
+                    if (s.equals(itemsList.get(i).item_name)){
+                        filterList.add(itemsList.get(i));
+
+                    }
+                }
+
+                Adapter adapter1=new Adapter(getApplicationContext(),filterList,mainInterface);
+                recyclerView.setAdapter(adapter1);
+                adapter.notifyDataSetChanged();
+//                Toast.makeText(MainActivity2.this, ""+filterList.get(0), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -99,6 +127,16 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
 //        Toast.makeText(this,"total quantity: "+quntity+" total price"+price, Toast.LENGTH_SHORT).show();
         totalprice.setText(String.valueOf(price));
         totalquantity.setText(String.valueOf(quntity));
+
+        //cart bar hiding
+        if (quntity>0){
+            cartlayout.setVisibility(View.VISIBLE);
+        }
+        adapter.notifyDataSetChanged();
+        if (quntity==0){
+            cartlayout.setVisibility(View.GONE);
+        }
+
         deletecart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

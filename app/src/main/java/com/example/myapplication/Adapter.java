@@ -23,15 +23,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     List<AllItems> allItemsList;
     List<Integer> val = new ArrayList<>();
     LinearLayout linearLayout;
+    MainInterface mainInterface;
 
-
-
-
-    public Adapter(Context context, List<AllItems> list) {
+    public Adapter(Context context, List<AllItems> list,MainInterface mainInterface) {
         this.context = context;
         this.allItemsList = list;
+        this.mainInterface=mainInterface;
     }
 
+    //    public Adapter(List<AllItems> allItemsList, MainInterface mainInterface) {
+//        this.allItemsList = allItemsList;
+//        this.mainInterface = mainInterface;
+//    }
 
     @NonNull
     @Override
@@ -54,7 +57,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
                 allItemsList.get(position).qty = allItemsList.get(position).qty + 1;
 //                ttl=allItemsList.get(position).qty + 1;
-                totalQuantityFinder();
+//                totalQuantityFinder();
+//                mainInterface.onclick(allItemsList.get(position).qty, (int) allItemsList.get(position).item_selling_price);
+                totalPriceQuantityFinder();
                 notifyDataSetChanged();
             }
 
@@ -76,7 +81,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 allItemsList.get(position).qty = allItemsList.get(position).qty + 1;
-                totalQuantityFinder();
+//                totalQuantityFinder();
+//                mainInterface.onclick(allItemsList.get(position).qty);
+                totalPriceQuantityFinder();
                 notifyDataSetChanged();
             }
         });
@@ -85,8 +92,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 allItemsList.get(position).qty = allItemsList.get(position).qty - 1;
-                totalQuantityFinder();
-                    notifyDataSetChanged();
+//                totalQuantityFinder();
+//                mainInterface.onclick(allItemsList.get(position).qty);
+                totalPriceQuantityFinder();
+                notifyDataSetChanged();
 
 
             }
@@ -112,6 +121,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         return allItemsList.size();
     }
 
+
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView itemName, itemDes;
         RoundedImageView roundedImageView;
@@ -135,17 +147,67 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             plus = itemView.findViewById(R.id.plus);
             cartitems = itemView.findViewById(R.id.cartitems);
 
+//            addbtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    mainInterface.onclick(getAdapterPosition());
+//                }
+//            });
+//
+//
+//            plus.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    mainInterface.onclick(getAdapterPosition());
+//                }
+//            });
+//
+//            minus.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    mainInterface.onclick(getAdapterPosition());
+//                }
+//            });
+
+
+
 
         }
     }
 
-    public void totalQuantityFinder(){
-
-//        mainActivity2.totalquantity.setText(String.valueOf(qty));
+//    public void totalQuantityFinder(){
+//
+////        mainActivity2.totalquantity.setText(String.valueOf(qty));
+//        int ttl=0;
+//        for (int i=0;i<allItemsList.size();i++){
+//            ttl+=allItemsList.get(i).qty;
+//        }
+////        Toast.makeText(context.getApplicationContext(), "Total Quantity: "+ttl, Toast.LENGTH_SHORT).show();
+//    }
+    public  void totalPriceQuantityFinder(){
         int ttl=0;
+        int ttlprice=0;
         for (int i=0;i<allItemsList.size();i++){
             ttl+=allItemsList.get(i).qty;
+           ttlprice+=allItemsList.get(i).item_selling_price * allItemsList.get(i).qty;
         }
-        Toast.makeText(context.getApplicationContext(), "Total Quantity: "+ttl, Toast.LENGTH_SHORT).show();
+        mainInterface.onclick(ttlprice,ttl);
+//        mainInterface.onclick(ttlprice);
+//        Toast.makeText(context, ""+ttlprice, Toast.LENGTH_SHORT).show();
+
     }
+    public void removeItems() {
+        for (int i=0;i<allItemsList.size();i++){
+            if (allItemsList.get(i).qty>0){
+                allItemsList.get(i).qty=0;
+            }
+        }
+
+        totalPriceQuantityFinder();
+
+
+    }
+
+
+
 }

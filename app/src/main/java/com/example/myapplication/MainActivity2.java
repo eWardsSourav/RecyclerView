@@ -23,13 +23,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity implements MainInterface {
     ProgressBar progressBar;
     TextView textView;
     RecyclerView recyclerView;
     LinearLayout cartlayout;
     TextView rstxt, totalprice, qtytxt, totalquantity, buynowbtn;
+    ImageView deletecart;
     int ttl=0;
+
+    MainInterface mainInterface;
 
     List<AllItems> itemsList = new ArrayList<>();
     Adapter adapter;
@@ -48,6 +51,7 @@ public class MainActivity2 extends AppCompatActivity {
         buynowbtn = findViewById(R.id.buynowbtn);
         totalquantity=findViewById(R.id.totalquantity);
         cartlayout=findViewById(R.id.cartlayour);
+        deletecart=findViewById(R.id.deletecart);
 
         progressBar.setVisibility(View.VISIBLE);
         textView.setVisibility(View.VISIBLE);
@@ -62,7 +66,6 @@ public class MainActivity2 extends AppCompatActivity {
                     textView.setVisibility(View.GONE);
                     if (!response.body().error) {
                         if (response.body().message.equals("Successful")) {
-
                             itemsList.addAll(response.body().data.item_list);
                             setRecyclerView();
 
@@ -86,8 +89,30 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void setRecyclerView() {
-        adapter = new Adapter(getApplicationContext(), itemsList);
+        adapter = new Adapter(getApplicationContext(), itemsList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onclick(int price,int quntity) {
+//        Toast.makeText(this,"total quantity: "+quntity+" total price"+price, Toast.LENGTH_SHORT).show();
+        totalprice.setText(String.valueOf(price));
+        totalquantity.setText(String.valueOf(quntity));
+        deletecart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Toast.makeText(MainActivity2.this,"click delete btn",Toast.LENGTH_SHORT).show();
+
+            adapter.removeItems();
+            Toast.makeText(getApplicationContext(),"all item removed",Toast.LENGTH_SHORT).show();
+            adapter.notifyDataSetChanged();
+
+
+
+            }
+        });
+
     }
 }

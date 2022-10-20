@@ -1,13 +1,11 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,14 +14,15 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity2 extends AppCompatActivity implements MainInterface {
     ProgressBar progressBar;
@@ -33,14 +32,17 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
     TextView rstxt, totalprice, qtytxt, totalquantity, buynowbtn;
     ImageView deletecart;
     SearchView searchView;
-    List<AllItems> filterList=new ArrayList<>();
-
-    int ttl=0;
-
+    int ttl = 0;
     MainInterface mainInterface;
 
     List<AllItems> itemsList = new ArrayList<>();
+    List<AllItems> filterList = new ArrayList<>();
+
+
+
+
     Adapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +56,10 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
         totalprice = findViewById(R.id.totalprice);
         qtytxt = findViewById(R.id.qtytxt);
         buynowbtn = findViewById(R.id.buynowbtn);
-        totalquantity=findViewById(R.id.totalquantity);
-        cartlayout=findViewById(R.id.cartlayour);
-        deletecart=findViewById(R.id.deletecart);
-        searchView=findViewById(R.id.search);
+        totalquantity = findViewById(R.id.totalquantity);
+        cartlayout = findViewById(R.id.cartlayour);
+        deletecart = findViewById(R.id.deletecart);
+        searchView = findViewById(R.id.search);
 
         progressBar.setVisibility(View.VISIBLE);
         textView.setVisibility(View.VISIBLE);
@@ -73,14 +75,12 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
                     if (!response.body().error) {
                         if (response.body().message.equals("Successful")) {
                             itemsList.addAll(response.body().data.item_list);
+                            filterList.addAll(itemsList);
                             setRecyclerView();
-
+                            filterSearch();
                         }
                     }
-
-
                 }
-
             }
 
             @Override
@@ -89,64 +89,82 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
             }
         });
 
+        List<AllItems> buyitems = new ArrayList<>();
+        buynowbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buyitems.clear();
+                for (int i = 0; i < adapter.allItemsList.size(); i++) {
+                    if (adapter.allItemsList.get(i).qty > 0) {
+                        buyitems.add(adapter.allItemsList.get(i));
+                    }
+                }
+//                Toast.makeText(MainActivity2.this, "buyitems Size"+buyitems.size(), Toast.LENGTH_SHORT).show();
+                Gson gson = new Gson();
+                String val = gson.toJson(buyitems);
 
+                Intent intent = new Intent(MainActivity2.this, ConfirmationPage.class);
+                intent.putExtra("data", val);
+                startActivity(intent);
+            }
+        });
     }
-
     public void setRecyclerView() {
-        adapter = new Adapter(getApplicationContext(), itemsList,this);
+        adapter = new Adapter(getApplicationContext(), filterList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+    }
 
+    public void filterSearch() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                for (int i = 0; i < itemsList.size(); i++) {
-                    if (s.equals(itemsList.get(i).item_name)){
-                        filterList.add(itemsList.get(i));
 
-                    }
-                }
-
-                Adapter adapter1=new Adapter(getApplicationContext(),filterList,mainInterface);
-                recyclerView.setAdapter(adapter1);
-                adapter.notifyDataSetChanged();
+//                adapter.notifyDataSetChanged();
 //                Toast.makeText(MainActivity2.this, ""+filterList.get(0), Toast.LENGTH_SHORT).show();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                filterList.clear();
+                for (int i = 0; i < itemsList.size(); i++) {
+                    if (itemsList.get(i).item_name.toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                        filterList.add(itemsList.get(i));
 
+                    }
+                }
                 return false;
             }
         });
     }
-
+//    public void buyNow() {
+//
+//        Toast.makeText(this, "bn"+buyitems.size(), Toast.LENGTH_SHORT).show();
+//
+//    }
     @Override
-    public void onclick(int price,int quntity) {
+    public void onclick(int price, int quntity) {
 //        Toast.makeText(this,"total quantity: "+quntity+" total price"+price, Toast.LENGTH_SHORT).show();
         totalprice.setText(String.valueOf(price));
         totalquantity.setText(String.valueOf(quntity));
 
         //cart bar hiding
-        if (quntity>0){
+        if (quntity > 0) {
             cartlayout.setVisibility(View.VISIBLE);
         }
         adapter.notifyDataSetChanged();
-        if (quntity==0){
+        if (quntity == 0) {
             cartlayout.setVisibility(View.GONE);
         }
 
         deletecart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                Toast.makeText(MainActivity2.this,"click delete btn",Toast.LENGTH_SHORT).show();
-
-            adapter.removeItems();
-            Toast.makeText(getApplicationContext(),"all item removed",Toast.LENGTH_SHORT).show();
-            adapter.notifyDataSetChanged();
-
+//              Toast.makeText(MainActivity2.this,"click delete btn",Toast.LENGTH_SHORT).show();
+                adapter.removeItems();
+                Toast.makeText(getApplicationContext(), "all item removed", Toast.LENGTH_SHORT).show();
+                adapter.notifyDataSetChanged();
 
 
             }

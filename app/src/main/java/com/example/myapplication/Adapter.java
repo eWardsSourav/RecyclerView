@@ -42,7 +42,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull Adapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
        // Item Name
         holder.itemName.setText(allItemsList.get(position).item_name);
-//Item Description
+        //Item Description
         holder.itemDes.setText(allItemsList.get(position).description);
         //Add Button
 
@@ -51,6 +51,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             public void onClick(View view) {
 
                 allItemsList.get(position).qty = allItemsList.get(position).qty + 1;
+
 //                ttl=allItemsList.get(position).qty + 1;
 //                totalQuantityFinder();
 //                mainInterface.onclick(allItemsList.get(position).qty, (int) allItemsList.get(position).item_selling_price);
@@ -76,8 +77,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 allItemsList.get(position).qty = allItemsList.get(position).qty + 1;
-//                totalQuantityFinder();
-//                mainInterface.onclick(allItemsList.get(position).qty);
                 totalPriceQuantityFinder();
                 notifyDataSetChanged();
             }
@@ -87,6 +86,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 allItemsList.get(position).qty = allItemsList.get(position).qty - 1;
+
 //                totalQuantityFinder();
 //                mainInterface.onclick(allItemsList.get(position).qty);
                 totalPriceQuantityFinder();
@@ -107,19 +107,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             holder.sprice.setText(String.valueOf(allItemsList.get(position).item_selling_price));
             holder.mprice.setPaintFlags(holder.mprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-
-
     }
-
     @Override
     public int getItemCount() {
         return allItemsList.size();
     }
 
-
-
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView itemName, itemDes;
         RoundedImageView roundedImageView;
         TextView sprice, mprice;
@@ -141,44 +135,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             num = itemView.findViewById(R.id.num);
             plus = itemView.findViewById(R.id.plus);
             cartitems = itemView.findViewById(R.id.cartitems);
-
-//            addbtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    mainInterface.onclick(getAdapterPosition());
-//                }
-//            });
-//
-//
-//            plus.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    mainInterface.onclick(getAdapterPosition());
-//                }
-//            });
-//
-//            minus.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    mainInterface.onclick(getAdapterPosition());
-//                }
-//            });
-
-
-
-
         }
     }
-
-//    public void totalQuantityFinder(){
-//
-////        mainActivity2.totalquantity.setText(String.valueOf(qty));
-//        int ttl=0;
-//        for (int i=0;i<allItemsList.size();i++){
-//            ttl+=allItemsList.get(i).qty;
-//        }
-////        Toast.makeText(context.getApplicationContext(), "Total Quantity: "+ttl, Toast.LENGTH_SHORT).show();
-//    }
     public  void totalPriceQuantityFinder(){
         int ttl=0;
         int ttlprice=0;
@@ -197,7 +155,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
                 allItemsList.get(i).qty=0;
             }
         }
-
         totalPriceQuantityFinder();
 
 

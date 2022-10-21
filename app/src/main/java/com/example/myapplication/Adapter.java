@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +18,13 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
     Context context;
     List<AllItems> allItemsList;
     List<String> val = new ArrayList<>();
     LinearLayout linearLayout;
     MainInterface mainInterface;
+    NewAdapter newAdapter;
 
 
     public Adapter(Context context, List<AllItems> list,MainInterface mainInterface) {
@@ -55,6 +57,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 //                ttl=allItemsList.get(position).qty + 1;
 //                totalQuantityFinder();
 //                mainInterface.onclick(allItemsList.get(position).qty, (int) allItemsList.get(position).item_selling_price);
+
                 totalPriceQuantityFinder();
                 notifyDataSetChanged();
             }
@@ -70,6 +73,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             holder.addbtn.setVisibility(View.GONE);
             holder.cartitems.setVisibility(View.VISIBLE);
             holder.num.setText(String.valueOf(allItemsList.get(position).qty));
+//            holder.num.setText(String.valueOf(newAdapter.alldata.get(position).qty));
 
         }
 

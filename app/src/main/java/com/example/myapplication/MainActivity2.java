@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -34,13 +38,9 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
     SearchView searchView;
     int ttl = 0;
     MainInterface mainInterface;
-
+    List<AllItems> mainItemList = new ArrayList<>();
     List<AllItems> itemsList = new ArrayList<>();
     List<AllItems> filterList = new ArrayList<>();
-
-
-
-
     Adapter adapter;
 
     @Override
@@ -48,10 +48,8 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         progressBar = findViewById(R.id.progressBar);
-
         textView = findViewById(R.id.textView);
         recyclerView = findViewById(R.id.recycler_view);
-
         rstxt = findViewById(R.id.rstxt);
         totalprice = findViewById(R.id.totalprice);
         qtytxt = findViewById(R.id.qtytxt);
@@ -76,7 +74,8 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
                         if (response.body().message.equals("Successful")) {
                             itemsList.addAll(response.body().data.item_list);
                             filterList.addAll(itemsList);
-                            setRecyclerView();
+                            mainItemList.addAll(filterList);
+                            setRecyclerView(mainItemList);
                             filterSearch();
                         }
                     }
@@ -99,18 +98,18 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
                         buyitems.add(adapter.allItemsList.get(i));
                     }
                 }
-//                Toast.makeText(MainActivity2.this, "buyitems Size"+buyitems.size(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity2.this, "buyitems Size"+mainItemList.size(), Toast.LENGTH_SHORT).show();
                 Gson gson = new Gson();
                 String val = gson.toJson(buyitems);
 
                 Intent intent = new Intent(MainActivity2.this, ConfirmationPage.class);
                 intent.putExtra("data", val);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
     }
-    public void setRecyclerView() {
-        adapter = new Adapter(getApplicationContext(), filterList, this);
+    public void setRecyclerView(List<AllItems> mainItemList) {
+        adapter = new Adapter(getApplicationContext(), mainItemList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
@@ -169,6 +168,45 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
 
             }
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if(resultCode == 1) {
+                Toast.makeText(this, "bal", Toast.LENGTH_SHORT).show();
+                String  strEditText = data.getStringExtra("MyData");
+                Type listType = new TypeToken<ArrayList<AllItems>>(){}.getType();
+                List<AllItems> yourClassList = new Gson().fromJson(strEditText, listType);
+
+                Log.e("LISSTTTTT",new Gson().toJson(yourClassList));
+                for (int i=0;i<yourClassList.size();i++){
+                    for (int j = 0; j < mainItemList.size(); j++) {
+                        if(mainItemList.get(j).item_id==yourClassList.get(i).item_id){
+                            Toast.makeText(this, ""+mainItemList.get(j).item_name, Toast.LENGTH_SHORT).show();
+                            mainItemList.get(j).qty=yourClassList.get(i).qty;
+
+                        }
+
+                    }
+
+                }
+                filterList.clear();
+                filterList.addAll(mainItemList);
+               // setRecyclerView(filterList);
+                adapter.notifyDataSetChanged();
+//                adapter = new Adapter(getApplicationContext(), yourClassList, this);
+//                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//                recyclerView.setAdapter(adapter);
+            }
+        }
+
+
+
+
 
     }
 }

@@ -44,7 +44,7 @@ public class ConfirmationPage extends AppCompatActivity{
 
         Type listType = new TypeToken<ArrayList<AllItems>>(){}.getType();
         List<AllItems> yourClassList = new Gson().fromJson(vall, listType);
-        buylist.clear();
+//        buylist.clear();
         buylist.addAll(yourClassList);
 
 
@@ -57,12 +57,26 @@ public class ConfirmationPage extends AppCompatActivity{
         recyclerView.setAdapter(adapter);
 
 
+
+
+
+        newList.clear();
+        newList.addAll(buylist);
+        adapter.notifyItemRangeInserted(0, newList.size());
+//        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
 //        newList.clear();
 //        newList.addAll(buylist);
-//        adapter.notifyDataSetChanged();
-//        adapter.notifyDataSetChanged();
-//        newList.clear();
-        newList.addAll(buylist);
+
+        Gson gson = new Gson();
+        String valu = gson.toJson(newList);
+
+        Log.e("valu",new Gson().toJson(valu));
+        Toast.makeText(this, ""+valu, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent();
+        intent.putExtra("MyData", valu);
+        setResult(1, intent);
 
 //      Intent intent = new Intent(ConfirmationPage.this,MainActivity2.class);
 
@@ -71,13 +85,5 @@ public class ConfirmationPage extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Gson gson = new Gson();
-        String valu = gson.toJson(newList);
-
-        Intent intent = new Intent();
-        intent.putExtra("MyData", valu);
-        setResult(1, intent);
-        finish();
-
     }
 }

@@ -74,8 +74,9 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
                         if (response.body().message.equals("Successful")) {
                             itemsList.addAll(response.body().data.item_list);
                             filterList.addAll(itemsList);
+                            mainItemList.clear();
                             mainItemList.addAll(filterList);
-                            setRecyclerView(mainItemList);
+                            setRecyclerView();
                             filterSearch();
                         }
                     }
@@ -108,8 +109,8 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
             }
         });
     }
-    public void setRecyclerView(List<AllItems> mainItemList) {
-        adapter = new Adapter(getApplicationContext(), mainItemList, this);
+    public void setRecyclerView() {
+        adapter = new Adapter(getApplicationContext(), filterList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
@@ -174,30 +175,35 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        Toast.makeText(this, "rq"+resultCode, Toast.LENGTH_SHORT).show();
 
         if (requestCode == 1) {
             if(resultCode == 1) {
-                Toast.makeText(this, "bal", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "bal", Toast.LENGTH_SHORT).show();
                 String  strEditText = data.getStringExtra("MyData");
+                Toast.makeText(this, ""+strEditText, Toast.LENGTH_SHORT).show();
+                Log.e("dataaa",strEditText);
+
                 Type listType = new TypeToken<ArrayList<AllItems>>(){}.getType();
                 List<AllItems> yourClassList = new Gson().fromJson(strEditText, listType);
 
-                Log.e("LISSTTTTT",new Gson().toJson(yourClassList));
+//                Log.e("LISSTTTTT",new Gson().toJson(yourClassList));
                 for (int i=0;i<yourClassList.size();i++){
                     for (int j = 0; j < mainItemList.size(); j++) {
-                        if(mainItemList.get(j).item_id==yourClassList.get(i).item_id){
-                            Toast.makeText(this, ""+mainItemList.get(j).item_name, Toast.LENGTH_SHORT).show();
+                        if(yourClassList.get(i).item_id==mainItemList.get(j).item_id){
+//                            Toast.makeText(this, ""+yourClassList.get(j).qty, Toast.LENGTH_SHORT).show();
                             mainItemList.get(j).qty=yourClassList.get(i).qty;
 
                         }
-
                     }
-
                 }
+
+                adapter.notifyDataSetChanged();
+
                 filterList.clear();
                 filterList.addAll(mainItemList);
-               // setRecyclerView(filterList);
-                adapter.notifyDataSetChanged();
+                setRecyclerView();
+//                adapter.notifyDataSetChanged();
 //                adapter = new Adapter(getApplicationContext(), yourClassList, this);
 //                recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //                recyclerView.setAdapter(adapter);

@@ -17,40 +17,44 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 
-public class NewAdapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyView> {
     Context context;
     List<AllItems> alldata;
-    QtySetterInterface qtySetterInterface;
 
     public NewAdapter(Context context, List<AllItems> alldata) {
         this.context = context;
         this.alldata = alldata;
     }
 
-
     @NonNull
     @Override
-    public Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.newlayout, parent, false);
-        return new Adapter.MyViewHolder(view);
+    public MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(context).inflate(R.layout.newlayout,parent,false);
+        return new MyView(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Adapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MyView holder, @SuppressLint("RecyclerView") int position) {
+        // Item Name
         holder.itemName.setText(alldata.get(position).item_name);
         //Item Description
         holder.itemDes.setText(alldata.get(position).description);
+        //Add Button
+
         holder.addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 alldata.get(position).qty = alldata.get(position).qty + 1;
-//                Toast.makeText(context, ""+alldata.get(0).qty, Toast.LENGTH_SHORT).show();
-//                qtySetterInterface.itemQty(alldata.get(position).qty);
+
                 notifyDataSetChanged();
             }
 
         });
+
+
+
         if (alldata.get(position).qty == 0) {
             holder.addbtn.setVisibility(View.VISIBLE);
             holder.cartitems.setVisibility(View.GONE);
@@ -58,6 +62,7 @@ public class NewAdapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             holder.addbtn.setVisibility(View.GONE);
             holder.cartitems.setVisibility(View.VISIBLE);
             holder.num.setText(String.valueOf(alldata.get(position).qty));
+//            holder.num.setText(String.valueOf(newAdapter.alldata.get(position).qty));
 
         }
 
@@ -65,7 +70,6 @@ public class NewAdapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 alldata.get(position).qty = alldata.get(position).qty + 1;
-//                Toast.makeText(context, ""+alldata.get(0).qty, Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
             }
         });
@@ -74,7 +78,6 @@ public class NewAdapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 alldata.get(position).qty = alldata.get(position).qty - 1;
-//                Toast.makeText(context, ""+alldata.get(0).qty, Toast.LENGTH_SHORT).show();
 
 //                totalQuantityFinder();
 //                mainInterface.onclick(allItemsList.get(position).qty);
@@ -95,20 +98,23 @@ public class NewAdapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             holder.sprice.setText(String.valueOf(alldata.get(position).item_selling_price));
             holder.mprice.setPaintFlags(holder.mprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
+
+
     }
 
     @Override
     public int getItemCount() {
         return alldata.size();
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+    public static class MyView extends RecyclerView.ViewHolder {
         TextView itemName, itemDes;
         RoundedImageView roundedImageView;
         TextView sprice, mprice;
         TextView addbtn;
         TextView minus, num, plus;
         LinearLayout cartitems;
-        public MyViewHolder(@NonNull View itemView) {
+        public MyView(@NonNull View itemView) {
             super(itemView);
 
             roundedImageView = itemView.findViewById(R.id.img);

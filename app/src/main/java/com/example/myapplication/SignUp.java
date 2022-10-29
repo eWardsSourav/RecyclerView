@@ -19,7 +19,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -135,12 +139,34 @@ public class SignUp extends AppCompatActivity {
 //                    Intent intent = new Intent(SignUp.this,MainActivity2.class);
 //                    startActivity(intent);
                     firebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     firebaseAuth.createUserWithEmailAndPassword(emailId, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(SignUp.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
                                 UserData userData = new UserData(name.getText().toString(),phone.getText().toString(),email.getText().toString(),password.getText().toString());
+                                userData.setName(name.getText().toString());
+                                userData.setPhoneNo(phone.getText().toString());
+                                userData.setEmailAddress(email.getText().toString());
+                                userData.setPassword(password.getText().toString());
+
+
+                                databaseReference = firebaseDatabase.getReference(name.getText().toString());
+
+                                databaseReference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        databaseReference.setValue(userData);
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Toast.makeText(SignUp.this, ""+error.toString(), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
 
                                 Intent intent = new Intent(SignUp.this,Login_Page.class);
                                 startActivity(intent);

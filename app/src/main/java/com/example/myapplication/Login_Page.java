@@ -55,7 +55,9 @@ public class Login_Page extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(Login_Page.this, "login successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Login_Page.this,MainActivity2.class);
+                                Intent intent = new Intent(Login_Page.this,ProfileActivity.class);
+                                intent.putExtra("useremail",email.getText().toString());
+                                intent.putExtra("userphone","7586912586");
                                 startActivity(intent);
                                 finish();
                             }

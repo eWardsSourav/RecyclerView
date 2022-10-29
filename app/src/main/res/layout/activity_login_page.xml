@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".Login_Page">
+
+    <TextView
+        android:id="@+id/logintxt"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/emailadd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logintxt"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="45dp"
+        android:inputType="textEmailAddress"
+        android:layout_marginEnd="5dp"
+        android:maxLines="1"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bordershape"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawablePadding="25dp"
+        android:hint="email"
+        android:minHeight="48dp"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/passs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailadd"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:inputType="textVisiblePassword"
+        android:maxLines="1"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bordershape"
+        android:drawableLeft="@drawable/ic_baseline_key_24"
+        android:drawablePadding="25dp"
+        android:hint="password"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textColorHint="@color/white" />
+
+    <Button
+        android:id="@+id/lgbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passs"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bordershape"
+        android:padding="10dp"
+        android:text="login" />
+
+    <TextView
+        android:id="@+id/sgbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lgbtn"
+        android:layout_alignEnd="@+id/lgbtn"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bordershape"
+        android:backgroundTint="@color/purple_200"
+        android:padding="10dp"
+        android:text="SignUp"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+
+
+</RelativeLayout>

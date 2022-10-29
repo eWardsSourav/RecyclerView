@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg"
+    android:layout_height="match_parent"
+    tools:context=".SignUp">
+
+    <TextView
+        android:id="@+id/sgntxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="SignUp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sgntxt"
+        android:textColorHint="@color/white"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bordershape"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="20dp"
+        android:hint="name"
+        android:minHeight="48dp"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:inputType="number"
+        android:background="@drawable/bordershape"
+        android:drawableLeft="@drawable/ic_baseline_phone_24"
+        android:drawablePadding="20dp"
+        android:hint="phone"
+        android:maxLines="1"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:maxLines="1"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/phone"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bordershape"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawablePadding="20dp"
+        android:hint="email"
+        android:minHeight="48dp"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/white"
+        android:layout_below="@id/email"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:maxLines="1"
+        android:layout_marginEnd="5dp"
+        android:inputType="textVisiblePassword"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bordershape"
+        android:drawableLeft="@drawable/ic_baseline_key_24"
+        android:drawablePadding="20dp"
+        android:hint="password"
+        android:minHeight="48dp"
+        android:padding="10dp" />
+    <EditText
+        android:id="@+id/confirmpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:textColorHint="@color/white"
+        android:drawableLeft="@drawable/ic_baseline_key_24"
+        android:hint="confirm password"
+        android:maxLines="1"
+        android:inputType="textVisiblePassword"
+        android:drawablePadding="20dp"
+        android:minHeight="48dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bordershape"
+        android:padding="10dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/passdetails"
+        android:layout_width="match_parent"
+        android:layout_below="@id/confirmpass"
+        android:layout_margin="8dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/uprcase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Password should contain at least one Uppercase"
+            android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/lwrcase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Password should contain lowercase"
+            android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/digit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Must have digit"/>
+        <TextView
+            android:id="@+id/splchar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Must have special character"/>
+        <TextView
+            android:id="@+id/length"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Length atleast 8"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submitbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="10dp"
+        android:background="@drawable/bordershape"
+        android:text="Submit" />
+
+
+
+
+</RelativeLayout>

@@ -9,11 +9,38 @@
 
     <SearchView
         android:id="@+id/search"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:queryHint="Search Here"
+        android:visibility="gone"
         android:iconifiedByDefault="false"
         android:layout_alignParentTop="true"  />
+
+    <ImageView
+        android:id="@+id/userprofile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        android:layout_margin="2dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_toEndOf="@id/search"
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_person_24" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/ltanime"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_speed="1"
+        app:lottie_url="https://assets4.lottiefiles.com/packages/lf20_m2igjaux.json" />
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/search"
@@ -22,25 +49,6 @@
         android:layout_height="match_parent"
         android:layout_above="@id/cartlayour"
         />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="Loading..."
-        android:textSize="20sp"
-        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/cartlayour"

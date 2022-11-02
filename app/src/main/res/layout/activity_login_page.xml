@@ -3,89 +3,128 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:focusableInTouchMode="true"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="#F8F5F5"
     tools:context=".Login_Page">
-
-    <TextView
-        android:id="@+id/logintxt"
-        android:textColor="@color/white"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
-        android:text="Login"
-        android:textAlignment="center"
-        android:textSize="25sp" />
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="20dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/emailadd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logintxt"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="45dp"
-        android:inputType="textEmailAddress"
-        android:layout_marginEnd="5dp"
-        android:maxLines="1"
-        android:textColorHint="@color/white"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bordershape"
-        android:drawableLeft="@drawable/ic_baseline_email_24"
-        android:drawablePadding="25dp"
-        android:hint="email"
-        android:minHeight="48dp"
-        android:padding="10dp" />
+                <TextView
+                    android:id="@+id/txts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Already \nhave an \nAccount?"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/imgs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bibimbap"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="5dp">
+                    <EditText
+                        android:id="@+id/emailadd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/bordershape"
+                        android:drawableLeft="@drawable/ic_baseline_email_24"
+                        android:drawablePadding="25dp"
+                        android:hint="email"
+                        android:minHeight="48dp"
+                        android:padding="10dp" />
+                    <EditText
+                        android:id="@+id/passs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_below="@id/emailadd"
+                        android:inputType="textVisiblePassword"
+                        android:maxLines="1"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/bordershape"
+                        android:drawableLeft="@drawable/ic_baseline_key_24"
+                        android:drawablePadding="25dp"
+                        android:hint="password"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                         />
 
-    <EditText
-        android:id="@+id/passs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/emailadd"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:inputType="textVisiblePassword"
-        android:maxLines="1"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bordershape"
-        android:drawableLeft="@drawable/ic_baseline_key_24"
-        android:drawablePadding="25dp"
-        android:hint="password"
-        android:minHeight="48dp"
-        android:padding="10dp"
-        android:textColorHint="@color/white" />
+                    <Button
+                        android:id="@+id/lgbtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/passs"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/bordershape"
+                        android:padding="10dp"
+                        android:backgroundTint="@color/bg"
+                        android:text="login" />
+                    <TextView
+                        android:id="@+id/sgbtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/bg"
+                        android:textStyle="bold"
+                        android:layout_margin="5dp"
+                        android:textAlignment="center"
+                        android:text="New user? Register Now"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-    <Button
-        android:id="@+id/lgbtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/passs"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bordershape"
-        android:padding="10dp"
-        android:text="login" />
+            </androidx.cardview.widget.CardView>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/ltyanim"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets1.lottiefiles.com/packages/lf20_p8bfn5to.json" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/sgbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lgbtn"
-        android:layout_alignEnd="@+id/lgbtn"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bordershape"
-        android:backgroundTint="@color/purple_200"
-        android:padding="10dp"
-        android:text="SignUp"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+
+    </ScrollView>
+
 
 
 

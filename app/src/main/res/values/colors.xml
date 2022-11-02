@@ -10,5 +10,7 @@
     <color name="btnbg">#39C52F</color>
     <color name="btntxt">#FFEB3B</color>
     <color name="blue">#6D45B5</color>
+    <color name="bg">#11CFC5</color>
+
 
 </resources>

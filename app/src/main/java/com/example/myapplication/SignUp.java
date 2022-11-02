@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class SignUp extends AppCompatActivity {
     Button submitBtn;
     LinearLayout passdetails;
     TextView uppercase, digitt, splcharr, length, lwrcase;
+    TextView txt;
+    ImageView img;
 
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -44,19 +47,21 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        signtxt = findViewById(R.id.sgntxt);
+
         name = findViewById(R.id.name);
         phone = findViewById(R.id.phone);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         confirmpass = findViewById(R.id.confirmpass);
         submitBtn = findViewById(R.id.submitbtn);
-        passdetails = findViewById(R.id.passdetails);
-        uppercase = findViewById(R.id.uprcase);
-        digitt = findViewById(R.id.digit);
-        splcharr = findViewById(R.id.splchar);
-        length = findViewById(R.id.length);
-        lwrcase = findViewById(R.id.lwrcase);
+        txt = findViewById(R.id.txt);
+        img = findViewById(R.id.img);
+//        passdetails = findViewById(R.id.passdetails);
+//        uppercase = findViewById(R.id.uprcase);
+//        digitt = findViewById(R.id.digit);
+//        splcharr = findViewById(R.id.splchar);
+//        length = findViewById(R.id.length);
+//        lwrcase = findViewById(R.id.lwrcase);
 
 
         password.addTextChangedListener(new TextWatcher() {
@@ -67,13 +72,13 @@ public class SignUp extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                passdetails.setVisibility(View.GONE);
+//                passdetails.setVisibility(View.GONE);
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                passdetails.setVisibility(View.VISIBLE);
+//                passdetails.setVisibility(View.VISIBLE);
                 Pattern upperCase = Pattern.compile("(?=.*[A-Z])");
                 Pattern lowercase = Pattern.compile("[a-z]");
                 Pattern digit = Pattern.compile("(?=.*[0-9])");
@@ -82,39 +87,39 @@ public class SignUp extends AppCompatActivity {
                 String pass = password.getText().toString();
 
                 if (upperCase.matcher(pass).find()) {
-                    uppercase.setTextColor(Color.GREEN);
+//                    uppercase.setTextColor(Color.GREEN);
 
                 } else {
-                    uppercase.setTextColor(Color.RED);
+//                    uppercase.setTextColor(Color.RED);
                     password.setError("Atleast one uppercase");
 
                 }
                 if (lowercase.matcher(pass).find()) {
-                    lwrcase.setTextColor(Color.GREEN);
+//                    lwrcase.setTextColor(Color.GREEN);
                 } else {
-                    lwrcase.setTextColor(Color.RED);
+//                    lwrcase.setTextColor(Color.RED);
                     password.setError("enter lowercase");
 
                 }
                 if (digit.matcher(pass).find()) {
-                    digitt.setTextColor(Color.GREEN);
+//                    digitt.setTextColor(Color.GREEN);
                 } else {
-                    digitt.setTextColor(Color.RED);
+//                    digitt.setTextColor(Color.RED);
                     password.setError("enter one digit");
 
                 }
                 if (splchar.matcher(pass).find()) {
-                    splcharr.setTextColor(Color.GREEN);
+//                    splcharr.setTextColor(Color.GREEN);
                 } else {
-                    splcharr.setTextColor(Color.RED);
+//                    splcharr.setTextColor(Color.RED);
                     password.setError("Atleast one spl character");
 
                 }
                 if (pass.length() < 8) {
                     password.setError("Atleast leanth 8");
-                    length.setTextColor(Color.RED);
+//                    length.setTextColor(Color.RED);
                 } else {
-                    length.setTextColor(Color.GREEN);
+//                    length.setTextColor(Color.GREEN);
                 }
 
             }
@@ -122,7 +127,7 @@ public class SignUp extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                passdetails.setVisibility(View.GONE);
+//                passdetails.setVisibility(View.GONE);
                 checkName();
                 checkPhone();
                 checkEmail();
@@ -144,12 +149,11 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(SignUp.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
                                 UserData userData = new UserData(name.getText().toString(),phone.getText().toString(),email.getText().toString(),password.getText().toString());
-                                userData.setName(name.getText().toString());
-                                userData.setPhoneNo(phone.getText().toString());
-                                userData.setEmailAddress(email.getText().toString());
-                                userData.setPassword(password.getText().toString());
+//                                userData.setName(name.getText().toString());
+//                                userData.setPhoneNo(phone.getText().toString());
+//                                userData.setEmailAddress(email.getText().toString());
+//                                userData.setPassword(password.getText().toString());
 
 
                                 databaseReference = firebaseDatabase.getReference(name.getText().toString());
@@ -158,6 +162,7 @@ public class SignUp extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         databaseReference.setValue(userData);
+                                        Toast.makeText(SignUp.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
 
                                     }
 
@@ -252,4 +257,5 @@ public class SignUp extends AppCompatActivity {
 
 
     }
+
 }

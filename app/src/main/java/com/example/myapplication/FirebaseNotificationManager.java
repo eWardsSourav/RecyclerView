@@ -58,7 +58,7 @@ public class FirebaseNotificationManager extends FirebaseMessagingService {
                 .setContentIntent(pendingIntent);
         // Check if the Android Version is greater than JELLY_BEAN
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN){
-            builder = builder.setContent(getCustomDesign(body,title));
+            builder = builder.setContent(getCustomDesign(title, body));
         }
         else {
             builder = builder.setContentTitle(title).setContentText(body).setSmallIcon(R.drawable.bibimbap);
@@ -77,5 +77,12 @@ public class FirebaseNotificationManager extends FirebaseMessagingService {
                     notificationChannel);
         }
         notificationManager.notify(0,builder.build());
+
+    }
+
+    @Override
+    public void onNewToken(@NonNull String token) {
+        Log.e("newtknn",token);
+        super.onNewToken(token);
     }
 }

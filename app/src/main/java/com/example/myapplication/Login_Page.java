@@ -26,6 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 public class Login_Page extends AppCompatActivity {
     TextView lgtxt;
@@ -107,13 +108,14 @@ public class Login_Page extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if (!task.isSuccessful()){
-                    Log.w("Task is not sucess",task.getException());
+                    Log.e("Task is not sucess",task.getException().toString());
                 }
                 String token = task.getResult();
                 Log.e("tokenn",token);
 
             }
         });
+
     }
 
     private void updateUI(FirebaseUser firebaseUser) {

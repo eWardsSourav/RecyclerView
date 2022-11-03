@@ -3,9 +3,14 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,7 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView photo;
     TextView textView;
     TextView userName;
@@ -61,6 +66,18 @@ public class ProfileActivity extends AppCompatActivity {
                 userPhone.setText(phoneNumber);
                 userEmail.setText(emaill);
                 userId.setText(userIdd);
+                userEmail.setOnClickListener(this);
+                userId.setOnClickListener(this);
+
+//            ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//            userEmail.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    ClipData clipData = ClipData.newPlainText("cpytxt",userEmail.getText());
+//                    clipboardManager.setPrimaryClip(clipData);
+//                    Toast.makeText(ProfileActivity.this, "Copied!", Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
 
         //this way you can retrieve data from firebase
@@ -115,5 +132,21 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(this, MainActivity2.class));
+    }
+
+    @Override
+    public void onClick(View view) {
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        switch (view.getId()){
+
+            case R.id.useremail:
+                ClipData clipData = ClipData.newPlainText("cpytxt",userEmail.getText());
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(ProfileActivity.this, "Copied!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.userid:ClipData cliData = ClipData.newPlainText("cpytxt",userId.getText());
+                clipboardManager.setPrimaryClip(cliData);
+                Toast.makeText(ProfileActivity.this, "Copied!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

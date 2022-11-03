@@ -57,7 +57,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 //                ttl=allItemsList.get(position).qty + 1;
 //                totalQuantityFinder();
 //                mainInterface.onclick(allItemsList.get(position).qty, (int) allItemsList.get(position).item_selling_price);
-
                 totalPriceQuantityFinder();
                 notifyDataSetChanged();
             }
@@ -151,7 +150,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         mainInterface.onclick(ttlprice,ttl);
 //        mainInterface.onclick(ttlprice);
 //        Toast.makeText(context, ""+ttlprice, Toast.LENGTH_SHORT).show();
-
     }
     public void removeItems() {
         for (int i=0;i<allItemsList.size();i++){

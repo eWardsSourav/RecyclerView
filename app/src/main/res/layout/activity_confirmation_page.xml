@@ -23,7 +23,94 @@
         android:id="@+id/rcyview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/cartlayour"
         android:layout_below="@+id/textView2"/>
+    <LinearLayout
+        android:id="@+id/cartlayour"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/btntxt"
+        android:visibility="visible"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rstxt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="Rs:"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/totalprice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="0"
+                android:maxLines="1"
+                android:gravity="center|start"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/qtytxt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Qty:"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/totalquantity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="2dp"
+                android:text="0"
+                android:textSize="20sp" />
+            <ImageView
+                android:id="@+id/deletecart"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_baseline_delete_forever_24"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/buynowbtn"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:background="@color/btnbg"
+            android:text="Buy Now"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -20,10 +20,12 @@ import java.util.List;
 public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyView> {
     Context context;
     List<AllItems> alldata;
+    MainInterface mainInterface;
 
-    public NewAdapter(Context context, List<AllItems> alldata) {
+    public NewAdapter(Context context, List<AllItems> alldata,MainInterface mainInterface) {
         this.context = context;
         this.alldata = alldata;
+        this.mainInterface = mainInterface;
     }
 
     @NonNull
@@ -47,7 +49,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyView> {
             public void onClick(View view) {
 
                 alldata.get(position).qty = alldata.get(position).qty + 1;
-
+                totalPriceQuantityFinder();
                 notifyDataSetChanged();
             }
 
@@ -63,13 +65,13 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyView> {
             holder.cartitems.setVisibility(View.VISIBLE);
             holder.num.setText(String.valueOf(alldata.get(position).qty));
 //            holder.num.setText(String.valueOf(newAdapter.alldata.get(position).qty));
-
         }
 
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alldata.get(position).qty = alldata.get(position).qty + 1;
+                totalPriceQuantityFinder();
                 notifyDataSetChanged();
             }
         });
@@ -78,6 +80,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyView> {
             @Override
             public void onClick(View view) {
                 alldata.get(position).qty = alldata.get(position).qty - 1;
+                totalPriceQuantityFinder();
 
 //                totalQuantityFinder();
 //                mainInterface.onclick(allItemsList.get(position).qty);
@@ -128,5 +131,29 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.MyView> {
             plus = itemView.findViewById(R.id.plus);
             cartitems = itemView.findViewById(R.id.cartitems);
         }
+    }
+    public  void totalPriceQuantityFinder(){
+        int ttl=0;
+        int ttlprice=0;
+        for (int i=0;i<alldata.size();i++){
+            ttl+=alldata.get(i).qty;
+            ttlprice+=alldata.get(i).item_selling_price * alldata.get(i).qty;
+        }
+        mainInterface.onclick(ttlprice,ttl);
+
+//        mainInterface.onclick(ttlprice);
+//        Toast.makeText(context, ""+ttlprice, Toast.LENGTH_SHORT).show();
+
+    }
+    public void removeItems() {
+        for (int i=0;i<alldata.size();i++){
+            if (alldata.get(i).qty>0){
+                alldata.get(i).qty=0;
+            }
+        }
+        totalPriceQuantityFinder();
+        notifyDataSetChanged();
+
+
     }
 }

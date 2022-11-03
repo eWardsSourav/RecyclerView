@@ -31,11 +31,8 @@ import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
-    TextView signtxt;
     EditText name, phone, email, password, confirmpass;
     Button submitBtn;
-    LinearLayout passdetails;
-    TextView uppercase, digitt, splcharr, length, lwrcase;
     TextView txt;
     ImageView img;
 

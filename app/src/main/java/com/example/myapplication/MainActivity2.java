@@ -82,10 +82,6 @@ public class MainActivity2 extends AppCompatActivity implements MainInterface {
                 finish();
             }
         });
-
-
-
-
         new ApiManager("http://myewards.in").service.getitems("15657", "15", "24019", "", "", "", "", "1", "50", "", "", "", "name", "asc", "", "").enqueue(new Callback<BaseModel>() {
             @Override
             public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
